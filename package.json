@@ -1,0 +1,48 @@
+{
+  "name": "enthrall",
+  "version": "1.0.0",
+  "description": "Enthrall is a Single Page Application that allows groups to present and collaborate with their peers in an interactive learning process.",
+  "main": "bundle.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brettinternet/enthrall.git"
+  },
+  "author": "Brett G",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brettinternet/enthrall/issues"
+  },
+  "homepage": "https://github.com/brettinternet/enthrall#readme",
+  "dependencies": {
+    "angular": "^1.5.9",
+    "angular-animate": "^1.5.9",
+    "angular-sanitize": "^1.5.9",
+    "angular-slick-carousel": "^3.1.7",
+    "angular-touch": "^1.5.9",
+    "angular-ui-router": "^0.3.2",
+    "angularfire": "^2.1.0",
+    "babel-preset-es2015": "^6.18.0",
+    "firebase": "^3.6.2",
+    "jquery": "^3.1.1",
+    "ng-showdown": "^1.1.0",
+    "showdown": "^1.5.1",
+    "slick-carousel": "^1.6.0"
+  },
+  "devDependencies": {
+    "colors": "^1.1.2",
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.1",
+    "express": "^4.15.2",
+    "del": "^2.2.2",
+    "gulp-babel": "^6.1.2",
+    "gulp-cachebust": "0.0.6",
+    "gulp-concat": "^2.6.1",
+    "gulp-print": "^2.0.1",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.9.1",
+    "gulp-uglify": "^2.0.0"
+  }
+}

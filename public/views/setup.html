@@ -1,0 +1,133 @@
+<top-setup></top-setup>
+<sidebar></sidebar>
+<main class="enlarge main-padding" id="landing-main">
+  <div class='find-create-form'>
+    <!-- if not logged in -->
+    <div ng-show="!firebaseUser" class="custom-form">
+      <div class="custom-form-header">new presentation</div>
+      <button type="button" id="create-login" class="login-container-button"><i class="material-icons">account_box</i>Log In To Create</button>
+    </div>
+    <!-- setup presName -->
+    <form ng-if="firebaseUser" ng-submit="newPres(presName)" class="custom-form">
+      <div class="custom-form-header">new presentation</div>
+      <input type="text" ng-model="presName" placeholder="Name" class="custom-form-input">
+      <!-- <button ng-hide="presName" id="presname-submit" class="custom-form-button">Create</button> -->
+    </form>
+    <!-- submit slides -->
+    <button ng-if="presName && firebaseUser" ng-click="submitSlides(); presName = '';" class="editor-finish-button" type="button">Finish All Slides</button>
+
+    <span ng-hide="presName && firebaseUser" class="custom-form form-border">
+      <div class="custom-form-header">find presentations</div>
+      <input type="text" placeholder="Search" class="custom-form-input" ng-model="searchAllPresentations">
+    </span>
+  </div>
+  <div ng-hide="presName && firebaseUser" class="find-results">
+    <div ng-repeat="
+    i in allPresentations | filter: searchAllPresentations">
+      <a ui-sref="present({urlId: i.urlIdentifier, presTitle: i.title})">
+        <span class="find-search-result">
+          <span class="find-search-result-presname" ng-bind="i.title | cut:true:35:'...'"></span>
+          <span class="find-search-result-created" ng-if="allPresentations">Created by: </span>
+          <span ng-if="!i.creatorName.uniqueNum" class="find-search-result-creator" ng-bind="i.creatorName"></span><span ng-if="i.creatorName.uniqueNum" class="find-search-result-creator" ng-bind="i.creatorName.name"></span><span class="uniqueNum" ng-if="i.creatorName.uniqueNum" ng-bind="i.creatorName.uniqueNum"></span>
+        </span>
+      </a>
+    </div>
+    <span class="login-error" ng-bind="fetchError"></span>
+  </div>
+  <div ng-if="presName && firebaseUser" class="editor-options-panel">
+
+      <!-- add / remove slides -->
+    <i class="material-icons edit-navigation-button" id="prev-slide">skip_previous</i>
+    <i class="material-icons edit-navigation-button" id="red" ng-click="deleteEditSlide()">delete</i>
+    <div ng-if="presName && firebaseUser" class="slide-number">
+        <span ng-bind="slideNumber"></span> / <span ng-bind="editSlides.length"></span>
+    </div>
+    <i class="material-icons edit-navigation-button add-button-adjust" id="green" ng-click="addEditSlide()">note_add</i>
+    <i class="material-icons edit-navigation-button" id="next-slide">skip_next</i>
+  </div>
+  <div class="editor" ng-show="presName && firebaseUser">
+    <div class="presentation-edit-container">
+      <!-- slick -->
+      <slick ng-if="slideEditLoaded" settings="slickConfig" init-onload=true data="editSlides" prev-arrow="#prev-slide" next-arrow="#next-slide">
+        <div ng-repeat="i in editSlides" class="slide-main">
+          <div class="slide-container">
+            <textarea allow-tabbing ng-model="i.slideInput" placeholder="Markdown text"></textarea>
+            <div class="slide-edit-output" ng-if="i.slideInput" markdown-to-html="i.slideInput">
+            </div>
+          </div>
+        </div>
+      </slick>
+    </div>
+  </div>
+</main>
+
+<!-- Modals -->
+<!-- Login modal -->
+<div modal class="modal-backbone" id="modal">
+  <div class="login-modal-container">
+    <div class="login-modal-header">
+      <span><i class="material-icons" id="exit-icon">highlight_off</i></span>
+    </div>
+    <div class="login-modal-main">
+      <span class="login-modal-logo">enthrall</span>
+
+      <!-- login stuffs -->
+      <input id="login-input" type="text" ng-model="userEmail" placeholder="Email">
+      <input id="login-input" type="password" ng-model="userPassword" placeholder="Password">
+      <button class="login-button" type="submit" ng-click="signIn(userEmail, userPassword)"><i class="material-icons">account_box</i>Log In</button>
+      <button class="login-button signup-button" type="button"><i class="material-icons">face</i>Create an account</button>
+      <button class="login-button" type="button" ng-click="signInProvider('google')"><i class="material-icons">verified_user</i>Sign in with Google</button>
+      <button class="login-button" type="button" ng-click="signInProvider('github')"><i class="material-icons">verified_user</i>Sign in with GitHub</button>
+      <button class="login-button" type="submit" ng-click="signInAnon()"><i class="material-icons">perm_identity</i>Sign in anonymously</button>
+    </div>
+    <div class="login-modal-footer">
+      <span ng-bind="signInError" class="login-error"></span>
+    </div>
+  </div>
+</div>
+<!-- hyperlink modal -->
+<div modal class="modal-backbone" id="link-modal">
+  <div class="login-modal-container" id="link-modal-main">
+    <div>
+      <i class="material-icons" id="exit-icon2">highlight_off</i>
+    </div>
+    <span ng-bind="'enthrallapp.co/'+ presName"></span>
+  </div>
+</div>
+<!-- signup modal -->
+<div modal class="modal-backbone" id="modal-signup">
+  <div class="login-modal-container" id="dark-back">
+    <div class="login-modal-header">
+      <span><i class="material-icons" id="exit-icon3">highlight_off</i></span>
+    </div>
+    <div class="login-modal-main">
+      <form class="custom-form" ng-submit="createUser(createDisplayName, createEmail, createPassword1, createPassword2)">
+        <div class="custom-form-header">create an account</div>
+        <input ng-model="createDisplayName" type="text" placeholder="name" class="custom-form-input" />
+        <input ng-model="createEmail" type="email" placeholder="email" class="custom-form-input" required/>
+        <input ng-model="createPassword1" type="password" placeholder="password" class="custom-form-input" required/>
+        <input ng-model="createPassword2" type="password" placeholder="confirm password" class="custom-form-input" required/>
+        <button class="custom-form-button">Create</button>
+      </form>
+    </div>
+    <div class="login-modal-footer">
+      <span ng-bind="signInError" class="login-error"></span>
+      <span ng-bind="createUserError" class="login-error"></span>
+    </div>
+  </div>
+</div>
+<!-- show html modal -->
+<div modal class="modal-backbone" id="modal-showhtml">
+  <div class="login-modal-container">
+    <div class="login-modal-header">
+      <span><i class="material-icons" id="exit-icon4">highlight_off</i></span>
+    </div>
+    <div class="login-modal-main">
+      <span class="html-show" ng-bind="slideOutput"></span>
+    </div>
+    <div class="login-modal-footer">
+      <span ng-bind="signInError" class="login-error"></span>
+      <span ng-bind="createUserError" class="login-error"></span>
+    </div>
+  </div>
+</div>

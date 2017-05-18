@@ -1,0 +1,201 @@
+
+/*CHAT CONTAINER*/
+.chat-side-bar {
+  height: 100vh;
+  width: 25vw;
+  float: left;
+  box-shadow: -1px 1px 2px rgb(37, 37, 37);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  transition-duration: 0.4s;
+}
+
+.chat-side-bar.ng-hide {
+  background-color: transparent;
+  right: -100%;
+  transition-duration: 0.4s;
+}
+
+/* chat show animation */
+.enlarge {
+  width: 100vw;
+  transition-duration: 0.4s;
+}
+
+header, main {
+  transition-duration: 0.4s;
+}
+
+/*Chat*/
+.chat-display {
+  height: 92vh;
+  width: 100%;
+  background-color: rgb(46, 49, 54);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: .3em;
+  border-color: rgb(30, 33, 36);
+  border-width: 0 0 0 1px;
+  border-style: solid;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  padding-top: 7vh;
+}
+
+/* NOTE: so this is my jacked up fix for flex + overflow scroll...1 div into 3 divs*/
+.chat-display-flex {
+  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.flex-is-broken-with-overflow-scroll {
+  display: flex;
+  flex-direction: column;
+}
+
+/*chat link info below header*/
+.chat-link-display {
+  height: 7vh;
+  width: 100%;
+  background-color: rgba(18, 21, 29, .75);
+  float: right;
+  font-size: 1.5vw;
+  word-wrap: break-word;
+  overflow: hidden;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: .5em;
+  box-shadow: -2px 2px 2px rgb(37, 37, 37);
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1vw;
+}
+
+.hyperlink-identifier {
+  color: rgb(103, 105, 109);
+}
+
+#info-icon {
+  font-size: 3vh;
+  color: white;
+  margin-right: .5vw;
+  cursor: pointer;
+}
+
+#link-modal-main {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 6.5em;
+  height: auto;
+  width: 90vw;
+  word-wrap: break-word;
+  font-weight: bold;
+  padding: .5em;
+  z-index: 12;
+}
+
+#info-icon:hover {
+  color: #d46066;
+}
+
+/*Chats*/
+.chat-message {
+  height: auto;
+  width: auto;
+  background-color: #6066d4;
+  color: rgb(209, 209, 209);
+  border-radius: .8em;
+  padding: .4em .5em .4em .5em;
+  margin: 0 .3em .3em .3em;
+  font-size: 2vw;
+  display: inline-block;
+  transition-duration: 0.3s;
+}
+
+.tutor {
+  background-color: #60d494;
+  color: black;
+}
+
+.chat-message:hover {
+  background-color: #d4ce60;
+  color: black;
+}
+
+.chat-info-container {
+  margin-bottom: 2px;
+}
+
+.chat-timestamp {
+  color: rgb(201, 201, 201);
+  font-size: 1.1vw;
+  margin-left: 1.7em;
+  text-transform: lowercase;
+}
+
+.chat-username {
+  color: rgb(201, 201, 201);
+  font-size: 1.1vw;
+}
+
+.uniqueNum {
+  color: rgb(103, 105, 109);
+  font-size: 1.1vw;
+}
+
+/*Chat - input*/
+.chat-input-container {
+  height: 8vh;
+  width: 100%;
+  background-color: rgb(46, 49, 54);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-width: 1px;
+  border-color: rgb(30, 33, 36);
+  border-style: solid;
+}
+
+.chat-input {
+  height: 6vh;
+  width: 23vw;
+  border-radius: .5em;
+  margin: 0 .3em;
+  border: 1px solid rgb(50, 50, 50);
+  padding: .2em .4em;
+  font-size: 2vw;
+}
+
+
+/* login container (pre-modal) */
+.login-container {
+  height: 8vh;
+  width: 100%;
+  background-color: rgb(46, 49, 54);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-width: 1px;
+  border-color: rgb(30, 33, 36);
+  border-style: solid;
+}
+
+.login-container-button {
+  height: 5vh;
+  width: 18vw;
+  font-size: 2vw;
+  background-color: #d4ce60;
+  overflow: hidden;
+  text-align: center;
+}
+
+.login-container-button:hover {
+  background-color: #60d494;
+  transform: translateY(-1px);
+}

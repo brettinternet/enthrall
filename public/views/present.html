@@ -1,0 +1,114 @@
+<top-present></top-present>
+<sidebar></sidebar>
+<main id="present-main">
+
+  <!-- <span>{{i.slideInput}}</span> -->
+
+  <slick ng-if="slidePresentLoaded" settings="slickConfigPresent" init-onload=true data="presentSlides" prev-arrow="false" next-arrow="false">
+    <div ng-repeat="i in presentSlides" class="slide-main-present">
+      <div class="slide-container-present">
+        <div ng-if="i.slideInput" markdown-to-html="i.slideInput">
+        </div>
+      </div>
+    </div>
+  </slick>
+
+  <!-- control panel -->
+  <!-- <div class="present-panel">
+    <i class="material-icons edit-navigation-button" id="next-slide">skip_next</i>
+  </div> -->
+</main>
+
+<!-- chat -->
+<section ng-show="chatShow" class="chat-side-bar">
+  <div class="chat-display" scroll-glue>
+    <div class="chat-link-display">
+      <i class="material-icons info-icon" id="info-icon">info</i>
+      <span ng-bind="presName"></span>
+      <span class="hyperlink-identifier" ng-bind="'#' + presIdentifier"></span>
+    </div>
+    <div class="chat-display-flex">
+      <div class="flex-is-broken-with-overflow-scroll">
+        <div ng-repeat="message in messages">
+          <div class="chat-info-container">
+            <span class="chat-timestamp" ng-bind="message.timestamp | date: 'h:mm a'"></span><span class="chat-username"> - </span>
+            <span ng-if="!message.author.uniqueNum" class="chat-username" ng-bind="message.author"></span><span ng-if="message.author.uniqueNum" class="chat-username" ng-bind="message.author.name"></span><span class="uniqueNum" ng-if="message.author.uniqueNum" ng-bind="message.author.uniqueNum"></span>
+          </div>
+          <div class="chat-message ng-class: {'tutor': message.tutorStatus}">
+            <span ng-bind="message.text">loading...</span>
+          </div>
+        </div>
+    </div>
+  </div>
+  </div>
+  <!-- login modal button -->
+  <div ng-show="!firebaseUser" class="login-container">
+    <button type="button" class="login-container-button"><i class="material-icons">account_box</i>Log In To Chat</button>
+  </div>
+
+  <!-- chat input -->
+  <div ng-show="firebaseUser" class="chat-input-container">
+    <form ng-submit="submitMessage(newMessage); newMessage = '';" ng-disabled="!newMessage">
+      <input ng-model="newMessage" mozactionhint="send" type="text" class="chat-input" placeholder="Message">
+  </form>
+  </div>
+</section>
+
+
+<!-- Modals -->
+<!-- Login modal -->
+<div modal class="modal-backbone" id="modal">
+  <div class="login-modal-container">
+    <div class="login-modal-header">
+      <span><i class="material-icons" id="exit-icon">highlight_off</i></span>
+    </div>
+    <div class="login-modal-main">
+      <span class="login-modal-logo">enthrall</span>
+
+      <!-- login stuffs -->
+      <input id="login-input" type="text" ng-model="userEmail" placeholder="Email">
+      <input id="login-input" type="password" ng-model="userPassword" placeholder="Password">
+      <button class="login-button" type="submit" ng-click="signIn(userEmail, userPassword)"><i class="material-icons">account_box</i>Log In</button>
+      <button class="login-button signup-button" type="button"><i class="material-icons">face</i>Create an account</button>
+      <button class="login-button" type="button" ng-click="signInProvider('google')"><i class="material-icons">verified_user</i>Sign in with Google</button>
+      <button class="login-button" type="button" ng-click="signInProvider('github')"><i class="material-icons">verified_user</i>Sign in with GitHub</button>
+      <button class="login-button" type="submit" ng-click="signInAnon()"><i class="material-icons">perm_identity</i>Sign in anonymously</button>
+    </div>
+    <div class="login-modal-footer">
+      <span ng-bind="signInError" class="login-error"></span>
+    </div>
+  </div>
+</div>
+<!-- hyperlink modal -->
+<div modal class="modal-backbone" id="link-modal">
+  <div class="hyperlink-modal-container" id="link-modal-main">
+    <div>
+      <i class="material-icons" id="exit-icon2">highlight_off</i>
+    </div>
+    <span ng-bind="'enthrallapp.co/#/present/'"></span><br/>
+    <span ng-bind="presIdentifier + '/' + presNameURL"></span>
+  </div>
+</div>
+
+<!-- signup modal -->
+<div modal class="modal-backbone" id="modal-signup">
+  <div class="login-modal-container" id="dark-back">
+    <div class="login-modal-header">
+      <span><i class="material-icons" id="exit-icon3">highlight_off</i></span>
+    </div>
+    <div class="login-modal-main">
+      <form class="custom-form" ng-submit="createUser(createDisplayName, createEmail, createPassword1, createPassword2)">
+        <div class="custom-form-header">create an account</div>
+        <input ng-model="createDisplayName" type="text" placeholder="name" class="custom-form-input" />
+        <input ng-model="createEmail" type="email" placeholder="email" class="custom-form-input" required/>
+        <input ng-model="createPassword1" type="password" placeholder="password" class="custom-form-input" required/>
+        <input ng-model="createPassword2" type="password" placeholder="confirm password" class="custom-form-input" required/>
+        <button class="custom-form-button">Create</button>
+      </form>
+    </div>
+    <div class="login-modal-footer">
+      <span ng-bind="signInError" class="login-error"></span>
+      <span ng-bind="createUserError" class="login-error"></span>
+    </div>
+  </div>
+</div>

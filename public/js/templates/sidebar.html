@@ -1,0 +1,33 @@
+<div ng-hide="navSwitch" class="modal-backbone" id="nav-background">
+<!--ng-click="toggleNav()"-->
+  <nav ng-hide="navSwitch">
+    <div class="nav-container">
+      <ul>
+        <li ui-sref-active="active-view">
+          <a ui-sref="home">
+            <span class="nav-item">
+              <i class="material-icons nav-icon">web</i>About</span></a></li>
+        <li ui-sref-active="active-view">
+          <a ui-sref="setup">
+            <span class="nav-item">
+              <i class="material-icons nav-icon" id="create-onnav">create</i>Find or Create</span></a></li>
+      </ul>
+      <span class="nav-login-container" ng-hide="firebaseUser">
+        <input id="login-input" type="text" ng-model="userEmail" placeholder="Email">
+        <input id="login-input" type="password" ng-model="userPassword" placeholder="Password">
+        <button class="login-button" type="submit" ng-click="signIn(userEmail, userPassword); toggleNav();"><i class="material-icons">account_box</i>Log In</button>
+        <span ng-bind="signInError" class="login-error"></span>
+        <button class="login-button" type="button"><i class="material-icons" id="signup-button-onnav">face</i>Create an account</button>
+        <button class="login-button" type="button" ng-click="signInProvider('google')"><i class="material-icons">verified_user</i>Sign in with Google</button>
+        <button class="login-button" type="button" ng-click="signInProvider('github')"><i class="material-icons">verified_user</i>Sign in with GitHub</button>
+        <button class="login-button" type="submit" ng-click="signInAnon()"><i class="material-icons">perm_identity</i>Sign in anonymously</button>
+      </span>
+      <span class="nav-login-container" ng-show="firebaseUser">
+        <button ng-click="auth.$signOut(); toggleNav()" class="login-button" id="signout" type="button"><i class="material-icons">exit_to_app</i>Sign out</button>
+      </span>
+      <!-- </div> -->
+      <a target="_blank" href="https://github.com/brettinternet/enthrall"><span class="nav-item"><i class="material-icons nav-icon">find_in_page</i>View Source</span></a>
+      <a href="mailto:brettinternet@gmail.com" ><span class="nav-item"><i class="material-icons nav-icon">contact_mail</i>Contact Us</span></a>
+    </div>
+  </nav>
+</div>

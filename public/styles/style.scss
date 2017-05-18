@@ -1,0 +1,85 @@
+@import '../node_modules/breakpoint-sass/stylesheets/breakpoint';
+@import 'base/variables';
+@import 'base/normalize';
+@import 'base/slick';
+@import 'base/slick-theme';
+@import 'header';
+@import 'main';
+@import 'section';
+@import 'modal';
+@import 'markdown';
+@import 'mediaq';
+
+
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(54, 57, 62);
+}
+
+button {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  outline: none;
+  transition-duration: 0.4s;
+  -webkit-transition-duration: 0.4s; /* safari */
+  overflow: hidden;
+  box-shadow: -2px 2px 2px rgb(37, 37, 37);
+}
+
+button:hover {
+  box-shadow: -4px 4px 4px rgb(37, 37, 37);
+}
+
+button:after {
+  content: "";
+  background-color: #aeafb1;
+  padding-top: 300%;
+  padding-left: 300%;
+  position: absolute;
+  display: block;
+  margin-left: -135px !important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s;
+}
+
+button:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s;
+}
+
+input, textarea {
+  background-color: rgb(66, 69, 73);
+  color: white;
+  box-shadow: -1px 1px 2px rgb(37, 37, 37);
+}
+
+input:focus, textarea:focus {
+  outline-style: none;
+  box-shadow: 0 0 .1vw .1vw #6066d4;
+}
+
+a {
+  width: 100%;
+}
+
+a:link, a:visited, a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}

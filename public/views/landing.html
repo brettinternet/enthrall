@@ -1,0 +1,48 @@
+<top-landing></top-landing>
+<sidebar></sidebar>
+<main class="enlarge" id="landing-main">
+  <div class="landing-first-view">
+    <div class="landing-first-logo">
+      <span class="logo-e">e</span>nthrall
+    </div>
+  </div>
+  <div class="landing-second-view">
+    <div class="landing-headliner">
+      <span id="blue">Learn</span>. <span id="green">Collaborate</span>. <span id="red">Be Enthralled</span>.
+    </div>
+    <div class="landing-quotes">
+      <div>
+        "What is this for?" <br/>
+        <div class="landing-author">my friend</div>
+      </div>
+      <div class=""><i class="material-icons lightbulb" id="yellow">wb_sunny</i></div>
+      <div>
+        "What is this idk lol" <br/>
+        <div class="landing-author">other friend</div>
+      </div>
+    </div>
+  </div>
+  <div class="landing-fifth-view">
+    <span class="custom-form-header" id="yellow">recent presentations</span>
+    <div class="find-results">
+      <div ng-repeat="
+      i in allPresentations | limitTo: 6">
+      <a ui-sref="present({urlId: i.urlIdentifier, presTitle: i.title})">
+        <span class="find-search-result">
+          <span class="find-search-result-presname" ng-bind="i.title | cut:true:35:'...'"></span><br/>
+          <span class="find-search-result-created" ng-if="allPresentations">Created by: </span>
+          <span ng-if="!i.creatorName.uniqueNum" class="find-search-result-creator" ng-bind="i.creatorName"></span><span ng-if="i.creatorName.uniqueNum" class="find-search-result-creator" ng-bind="i.creatorName.name"></span><span class="uniqueNum" ng-if="i.creatorName.uniqueNum" ng-bind="i.creatorName.uniqueNum"></span>
+        </span>
+      </a>
+      </div>
+      <div id="view-more-presentations" ui-sref="setup">view more</div>
+  </div>
+</main>
+<div class="landing-footer-view">
+  <div class="footer-links">
+    <a target="_blank" href="https://github.com/brettinternet/enthrall"><span class="footer-link-item">About</span></a>
+    <a ng-if="!firebaseUser" id="signup-button-onnav"><span class="footer-link-item signup-button">Sign up</span></a>
+    <a ui-sref="setup"><span class="footer-link-item">Create</span></a>
+  </div>
+    <span class="tagline">Made with <i class="material-icons heart">favorite</i> by <a target="_blank" href="https://github.com/brettinternet">Brett G</a></span>
+</div>
